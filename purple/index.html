@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chores - Organize your tasks with HTMX</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./custom-style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./index.js" defer></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11" defer></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.11/dist/ext/ws.js"
+      defer
+    ></script>
+  </head>
+  <body hx-ext="ws" ws-connect="ws://localhost:443/">
+    <main class="mb-16">
+      <h3 class="text-2xl font-bold mb-3">Chores</h3>
+
+      <div class="todos">
+        <div class="todos__container bg-purple-100 divide-y-2 divide-gray-100 py-2" id="todos-list"></div>
+        <div ws-send hx-trigger="revealed" id="load-todos"></div>
+      </div>
+
+      <button
+        class="action-fab w-24 h-12 bg-purple-300 rounded shadow flex justify-center items-center"
+        label="New"
+        onclick="onCreate()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      </button>
+    </main>
+
+    <div id="create-todo-dialog-shell" ws-send hx-trigger="revealed"></div>
+  </body>
+</html>
